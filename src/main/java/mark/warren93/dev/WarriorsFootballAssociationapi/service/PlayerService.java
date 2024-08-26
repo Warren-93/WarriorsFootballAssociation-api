@@ -4,10 +4,11 @@ import mark.warren93.dev.WarriorsFootballAssociationapi.model.Player;
 
 import mark.warren93.dev.WarriorsFootballAssociationapi.repository.PlayerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class PlayerService {
 
     @Autowired
