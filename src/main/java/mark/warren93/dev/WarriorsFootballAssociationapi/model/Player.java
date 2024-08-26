@@ -22,4 +22,12 @@ public class Player {
         this.squad_number = squad_number;
         this.position = position;
     }
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
+    }
 }

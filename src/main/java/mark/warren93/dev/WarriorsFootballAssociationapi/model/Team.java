@@ -26,4 +26,11 @@ public class Team {
         this.players = players;
     }
 
+    public String getObjectId() {
+        return ObjectId;
+    }
+
+    public void setObjectId(String objectId) {
+        ObjectId = objectId;
+    }
 }
