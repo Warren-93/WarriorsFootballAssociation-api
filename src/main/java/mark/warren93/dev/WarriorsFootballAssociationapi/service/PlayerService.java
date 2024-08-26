@@ -12,11 +12,13 @@ import java.util.List;
 public class PlayerService {
 
     @Autowired
-    PlayerRepo playerRepo;
+    private PlayerRepo playerRepo;
+
     public List<Player> findAllPlayer() {
-        return playerRepo.findAllPlayers();
+        return playerRepo.findAll();  // Uses the standard findAll() method
     }
-    public List<Player> findAllPlayersByTeamName(String team_name) {
-        return playerRepo.findAllPlayersByTeamName(team_name);
+
+    public List<Player> findAllPlayersByTeamName(String teamName) {
+        return playerRepo.findAllPlayersByTeamName(teamName);  // Uses the convention-based query method
     }
 }
