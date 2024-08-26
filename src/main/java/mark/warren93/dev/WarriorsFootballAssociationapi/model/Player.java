@@ -17,15 +17,15 @@ public class Player{
         private int squad_number;
         private String position;
 
-        private String team_name;
+        private String teamName;
 
 
 
-    public Player(String name, int squad_number, String position, String team_name) {
+    public Player(String name, int squad_number, String position, String teamName) {
         this.name = name;
         this.squad_number = squad_number;
         this.position = position;
-        this.team_name = team_name;
+        this.teamName = teamName;
     }
 
     public int getPlayerId() {
@@ -36,7 +36,7 @@ public class Player{
         this.playerId = playerId;
     }
 
-    public void setTeam_name(String team_name) {
-        this.team_name = team_name;
+    public void setTeam_name(String teamName) {
+        this.teamName = teamName;
     }
 }
