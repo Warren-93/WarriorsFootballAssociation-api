@@ -14,9 +14,9 @@ public class PlayerService {
     @Autowired
     PlayerRepo playerRepo;
     public List<Player> findAllPlayer() {
-        return playerRepo.getAllPlayers();
+        return playerRepo.findAllPlayers();
     }
-    public List<Player> getAllPlayersByTeam(String team_name) {
-        return playerRepo.getAllPlayersByTeamName(team_name);
+    public List<Player> findAllPlayersByTeamName(String team_name) {
+        return playerRepo.findAllPlayersByTeamName(team_name);
     }
 }

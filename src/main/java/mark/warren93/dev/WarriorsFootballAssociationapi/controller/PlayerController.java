@@ -25,10 +25,10 @@ public class PlayerController {
             System.out.println(allPlayers);
             return new ResponseEntity<>(allPlayers, HttpStatus.OK);
         }
-        @GetMapping("/playersByTeam")
-        public ResponseEntity<List<Player>> getSingleTeamByTeamName(@RequestParam String team_name){
-            List<Player> getAllPlayersByTeam = service.getAllPlayersByTeam(team_name);
-            return new ResponseEntity<>(getAllPlayersByTeam, HttpStatus.OK);
+        @GetMapping("/playersByTeamName")
+        public ResponseEntity<List<Player>> getAllPlayersByTeamName(@RequestParam String team_name){
+            List<Player> findAllPlayersByTeam = service.findAllPlayersByTeamName(team_name);
+            return new ResponseEntity<>(findAllPlayersByTeam, HttpStatus.OK);
         }
 
 }

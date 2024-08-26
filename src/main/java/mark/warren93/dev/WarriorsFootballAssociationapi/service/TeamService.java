@@ -16,7 +16,7 @@ public class TeamService {
         return repository.findAll();
     }
 
-    public Optional<Team> getSingleTeamByTeamName(String team_name){
+    public Optional<Team> findTeamByTeamName(String team_name){
         return repository.findTeamByTeamName(team_name);
     }
 }

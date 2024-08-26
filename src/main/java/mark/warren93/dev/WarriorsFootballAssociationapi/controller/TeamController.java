@@ -25,7 +25,7 @@ public class TeamController{
     }
     @GetMapping("/teamByTeamName")
     public ResponseEntity<Optional<Team>> getSingleTeamByTeamName(@RequestParam String team_name){
-        Optional<Team> getSingleTeamByTeamName = service.getSingleTeamByTeamName(team_name);
+        Optional<Team> getSingleTeamByTeamName = service.findTeamByTeamName(team_name);
         return new ResponseEntity<>(getSingleTeamByTeamName, HttpStatus.OK);
     }
 }
