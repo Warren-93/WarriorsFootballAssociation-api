@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 @Document(collection = "db-team.players")
 @Data
 @AllArgsConstructor
@@ -16,10 +17,7 @@ public class Player{
         private String name;
         private int squad_number;
         private String position;
-
         private String teamName;
-
-
 
     public Player(String name, int squad_number, String position, String teamName) {
         this.name = name;
@@ -34,9 +32,5 @@ public class Player{
 
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
-    }
-
-    public void setTeam_name(String teamName) {
-        this.teamName = teamName;
     }
 }
