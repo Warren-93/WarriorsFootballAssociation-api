@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Player {
+public class Player{
 
         @Id
         private int playerId;
@@ -17,10 +17,15 @@ public class Player {
         private int squad_number;
         private String position;
 
-    public Player(String name, int squad_number, String position) {
+        private String team_name;
+
+
+
+    public Player(String name, int squad_number, String position, String team_name) {
         this.name = name;
         this.squad_number = squad_number;
         this.position = position;
+        this.team_name = team_name;
     }
 
     public int getPlayerId() {
@@ -29,5 +34,9 @@ public class Player {
 
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
+    }
+
+    public void setTeam_name(String team_name) {
+        this.team_name = team_name;
     }
 }
