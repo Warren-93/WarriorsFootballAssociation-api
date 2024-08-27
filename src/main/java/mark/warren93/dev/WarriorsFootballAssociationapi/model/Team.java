@@ -17,11 +17,12 @@ public class Team {
 
     @Id
     private String ObjectId;
-    private String teamId = ObjectId;
+    private int teamId;
     private String teamName;
     private List<Player> players;
 
-    public Team(String teamName, List<Player> players) {
+    public Team(int teamId, String teamName, List<Player> players) {
+        this.teamId = teamId+=1;
         this.teamName = teamName;
         this.players = players;
     }
