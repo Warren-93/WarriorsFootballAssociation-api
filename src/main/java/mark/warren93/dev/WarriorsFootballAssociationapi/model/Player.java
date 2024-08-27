@@ -10,30 +10,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Player{
+public class Player extends PlayerStats{
 
         @Id
         private String ObjectId;
+        private String teamName;
         private String name;
         private int squad_number;
         private String position;
-        private String teamName;
 
         private PlayerStats playerStats;
 
     public Player(String name, int squad_number, String position, String teamName, PlayerStats playerStats) {
+        this.teamName = teamName;
         this.name = name;
         this.squad_number = squad_number;
         this.position = position;
-        this.teamName = teamName;
         this.playerStats = playerStats;
-    }
-
-    public String getObjectId() {
-        return ObjectId;
-    }
-
-    public void setObjectId(String ObjectId) {
-        this.ObjectId = ObjectId;
     }
 }
