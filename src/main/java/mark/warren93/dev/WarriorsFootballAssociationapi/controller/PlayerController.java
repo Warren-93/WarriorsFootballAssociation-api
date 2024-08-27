@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -27,8 +28,8 @@ public class PlayerController {
         }
 
     @GetMapping("/playerByPlayerName")
-    public ResponseEntity<List<Player>> getSinglePlayerByPlayerName(@RequestParam String playerName){
-        List<Player> findPlayerByPlayerName = service.findPlayerByPlayerName(playerName);
+    public ResponseEntity<Optional<Player>> getSinglePlayerByPlayerName(@RequestParam String playerName){
+        Optional<Player> findPlayerByPlayerName = service.findPlayerByPlayerName(playerName);
         return new ResponseEntity<>(findPlayerByPlayerName, HttpStatus.OK);
     }
 }

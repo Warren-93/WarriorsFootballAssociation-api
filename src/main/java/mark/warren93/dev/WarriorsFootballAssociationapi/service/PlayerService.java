@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlayerService {
@@ -17,7 +18,7 @@ public class PlayerService {
         return playerRepo.findAll();  // Uses the standard findAll() method
     }
 
-    public List<Player> findPlayerByPlayerName(String playerName) {
+    public Optional<Player> findPlayerByPlayerName(String playerName) {
         return playerRepo.findSinglePlayerByPlayerName(playerName);
     }
 }
