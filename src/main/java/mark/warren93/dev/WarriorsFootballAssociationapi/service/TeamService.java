@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TeamService {
@@ -16,7 +15,7 @@ public class TeamService {
         return repository.findAll();
     }
 
-    public Optional<Team> findTeamByTeamName(String team_name){
+    public List<Team> findTeamByTeamName(String team_name){
         return repository.findTeamByTeamName(team_name);
     }
 }
