@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PlayerRepo extends MongoRepository<Player, String> {
@@ -15,4 +16,8 @@ public interface PlayerRepo extends MongoRepository<Player, String> {
 
     @Query("{'team_name': ?0}")  // MongoDB query to find players by team name
     List<Player> findAllPlayersByTeamName(String teamName);
+
+    @Query("{'name': ?0}")
+    Optional<Player> findSinglePlayerByPlayerName(String playerName);
+
 }
