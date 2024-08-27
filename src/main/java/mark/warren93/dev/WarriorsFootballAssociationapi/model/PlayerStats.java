@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlayerStats{
+public class PlayerStats extends Player{
 
     private int goals;
     private int assists;
