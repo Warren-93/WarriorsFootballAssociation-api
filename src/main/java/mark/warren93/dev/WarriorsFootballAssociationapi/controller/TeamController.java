@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +36,6 @@ public class TeamController{
         System.out.println(singleTeamPlayerDetailsByTeamName);
         return new ResponseEntity<>(singleTeamPlayerDetailsByTeamName, HttpStatus.OK);
     }
-
     @GetMapping("/teamByTeamName")
     public ResponseEntity<Optional<Team>> getSingleTeamByTeamName(@RequestParam String team_name){
         Optional<Team> getSingleTeamByTeamName = service.findTeamByTeamName(team_name);

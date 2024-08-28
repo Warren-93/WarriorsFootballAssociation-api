@@ -18,12 +18,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
@@ -33,6 +31,4 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }
