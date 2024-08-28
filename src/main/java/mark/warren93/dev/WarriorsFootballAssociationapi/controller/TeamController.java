@@ -29,7 +29,7 @@ public class TeamController{
         System.out.println(allTeams);
         return new ResponseEntity<>(allTeams, HttpStatus.OK);
     }
-    @GetMapping("/SingleTeamPlayerDetailsByTeamName")
+    @GetMapping("/singleTeamPlayerDetailsByTeamName")
     public ResponseEntity<List<Team>> getSingleTeamPlayerDetailsByTeamName(@RequestParam String team_name){
         List<Team> singleTeamPlayerDetailsByTeamName = service.getSingleTeamPlayerDetailsByTeamName(team_name);
         System.out.println("************* We have hit the get for single team ********************");
