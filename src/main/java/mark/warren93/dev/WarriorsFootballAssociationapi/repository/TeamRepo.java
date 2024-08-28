@@ -14,4 +14,6 @@ public interface TeamRepo extends MongoRepository<Team, String> {
     //Optional<Team> findByTeamId(String teamId);
 
     Optional<Team> findTeamByTeamName(String team_name);
+    List<Team> findSingleTeamsPlayerDetailsByTeamName(String team_name);
+
 }

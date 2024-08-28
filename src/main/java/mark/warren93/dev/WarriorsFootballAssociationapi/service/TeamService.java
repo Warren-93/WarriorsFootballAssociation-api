@@ -15,12 +15,13 @@ public class TeamService {
     public List<Team> findAllTeams() {
         return repository.findAll();
     }
-
     public Optional<Team> findTeamByTeamName(String team_name){
         return repository.findTeamByTeamName(team_name);
     }
-
     public Team createTeam(Team team) {
         return repository.save(team);
+    }
+    public List<Team> getSingleTeamPlayerDetailsByTeamName(String teamName) {
+        return repository.findSingleTeamsPlayerDetailsByTeamName(teamName);
     }
 }

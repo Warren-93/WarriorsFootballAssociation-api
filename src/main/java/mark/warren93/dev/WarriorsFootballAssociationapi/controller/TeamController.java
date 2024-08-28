@@ -30,9 +30,19 @@ public class TeamController{
         System.out.println(allTeams);
         return new ResponseEntity<>(allTeams, HttpStatus.OK);
     }
+    @GetMapping("/SingleTeamPlayerDetailsByTeamName")
+    public ResponseEntity<List<Team>> getSingleTeamPlayerDetailsByTeamName(@RequestParam String team_name){
+        List<Team> singleTeamPlayerDetailsByTeamName = service.getSingleTeamPlayerDetailsByTeamName(team_name);
+        System.out.println("************* We have hit the get for single team ********************");
+        System.out.println(singleTeamPlayerDetailsByTeamName);
+        return new ResponseEntity<>(singleTeamPlayerDetailsByTeamName, HttpStatus.OK);
+    }
+
     @GetMapping("/teamByTeamName")
     public ResponseEntity<Optional<Team>> getSingleTeamByTeamName(@RequestParam String team_name){
         Optional<Team> getSingleTeamByTeamName = service.findTeamByTeamName(team_name);
+        System.out.println("************* We have hit the get for single team ********************");
+        System.out.println(getSingleTeamByTeamName);
         return new ResponseEntity<>(getSingleTeamByTeamName, HttpStatus.OK);
     }
 }
