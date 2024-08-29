@@ -29,7 +29,10 @@ public class PlayerService {
 
     public Player createPlayer(Player player, String teamName){
     Optional<Team> teamOptional = teamRepo.findTeamByTeamName(teamName);
+    System.out.println(teamOptional);
+
         if (teamOptional.isPresent()) {
+            System.out.println("We are in the if of present optional");
             Team team = teamOptional.get();
             Player savedPlayer = playerRepo.save(player); // Save the player first
             team.getPlayers().add(player); // Add the player to the team

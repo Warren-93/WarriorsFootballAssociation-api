@@ -21,6 +21,7 @@ public class PlayerController {
             Player createPlayer = service.createPlayer(player, teamName);
             return new ResponseEntity<>(createPlayer, HttpStatus.CREATED);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
