@@ -26,9 +26,11 @@ public class PlayerService {
     public Optional<Player> findPlayerByPlayerName(String playerName) {
         return playerRepo.findSinglePlayerByPlayerName(playerName);
     }
+
     public Player createPlayer(Player player, String teamName) {
         // Find the team by its name
         Optional<Team> teamOptional = teamRepo.findTeamByTeamName(teamName);
+        System.out.println("We are in create player");
 
         if (teamOptional.isPresent()) {
             Team team = teamOptional.get();
@@ -51,5 +53,4 @@ public class PlayerService {
             throw new RuntimeException("Team not found with name: " + teamName);
         }
     }
-
 }
