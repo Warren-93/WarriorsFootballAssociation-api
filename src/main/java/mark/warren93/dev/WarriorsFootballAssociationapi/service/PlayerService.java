@@ -26,17 +26,26 @@ public class PlayerService {
     public Optional<Player> findPlayerByPlayerName(String playerName) {
         return playerRepo.findSinglePlayerByPlayerName(playerName);
     }
-
-    public Player createPlayer(Player player, String teamName){
-    Optional<Team> teamOptional = teamRepo.findTeamByTeamName(teamName);
-    System.out.println(teamOptional);
+    public Player createPlayer(Player player, String teamName) {
+        // Find the team by its name
+        Optional<Team> teamOptional = teamRepo.findTeamByTeamName(teamName);
 
         if (teamOptional.isPresent()) {
-            System.out.println("We are in the if of present optional");
             Team team = teamOptional.get();
-            Player savedPlayer = playerRepo.save(player); // Save the player first
-            team.getPlayers().add(player); // Add the player to the team
-            teamRepo.save(team); // Save the updated team
+            System.out.println("Team found: " + team.getTeamName());
+
+            // Set the team for the player if your model requires it
+            //player.setTeam(team); // Ensure Player class has setTeam() method if necessary
+
+            // Save the player
+            Player savedPlayer = playerRepo.save(player);
+
+            // Add the player to the team
+            team.getPlayers().add(savedPlayer);
+
+            // Save the updated team
+            teamRepo.save(team);
+
             return savedPlayer;
         } else {
             throw new RuntimeException("Team not found with name: " + teamName);

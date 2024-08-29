@@ -27,6 +27,4 @@ public class Player {
         this.position = position;
         this.playerStats = playerStats;
     }
-
-
 }
