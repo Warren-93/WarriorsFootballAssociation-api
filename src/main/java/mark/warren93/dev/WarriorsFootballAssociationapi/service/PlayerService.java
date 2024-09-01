@@ -43,7 +43,7 @@ public class PlayerService {
             Player savedPlayer = playerRepo.save(player);
 
             // Add the player to the team
-            team.getPlayers().add(savedPlayer);
+           // team.getPlayers().add(savedPlayer);
 
             // Save the updated team
             teamRepo.save(team);
