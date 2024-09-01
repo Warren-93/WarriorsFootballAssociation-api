@@ -18,4 +18,8 @@ public interface PlayerRepo extends MongoRepository<Player, String> {
     @Query("{'name': ?0}")
     Optional<Player> findSinglePlayerByPlayerName(String playerName);
 
+
+    Player saveNewPlayer(Player player);
+
+
 }

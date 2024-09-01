@@ -46,7 +46,7 @@ public class PlayerService {
            // team.getPlayers().add(savedPlayer);
 
             // Save the updated team
-            teamRepo.save(team);
+           // teamRepo.save(team);
 
             return savedPlayer;
         } else {

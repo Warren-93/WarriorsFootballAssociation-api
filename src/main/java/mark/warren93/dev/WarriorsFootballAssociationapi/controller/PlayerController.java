@@ -21,8 +21,9 @@ public class PlayerController {
             Player createPlayer = service.createPlayer(player, teamName);
             return new ResponseEntity<>(createPlayer, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println("Catch in controller !!!!!!!!!!!!!!!!!!!!!!");
             e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @GetMapping("/allPlayers")
