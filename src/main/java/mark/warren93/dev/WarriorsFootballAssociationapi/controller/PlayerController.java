@@ -18,7 +18,7 @@ public class PlayerController {
     @PostMapping("/createPlayer")
     public ResponseEntity<String> createPlayer(@RequestBody Player player, @RequestParam String teamName) {
         try {
-            //Player createPlayer = service.createPlayer(player, teamName);
+            Player createPlayer = service.createPlayer(player, teamName);
             String success = "Player added";
             return new ResponseEntity<>(success, HttpStatus.CREATED);
         } catch (Exception e) {
