@@ -23,12 +23,13 @@ public class UserAuthService {
 
     public String authLoginRequest(String username, String password) {
         User user = userService.getUserByUsername(username);
+        System.out.println("AuthLogin");
 
-        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+        if (user != null && username.matches(user.getPassword().toString())){
             // Generate JWT Token
             return Jwts.builder()
                     .setSubject(user.getUsername())  // Use username as the subject
-                    .claim("role", user.getRole())  // Optionally, add user roles/claims
+                    //.claim("role", user.getRole())  // Optionally, add user roles/claims
                     .setIssuedAt(new Date())
                     .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
                     .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
