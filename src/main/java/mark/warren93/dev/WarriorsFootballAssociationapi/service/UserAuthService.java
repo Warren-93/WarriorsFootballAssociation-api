@@ -1,7 +1,6 @@
 package mark.warren93.dev.WarriorsFootballAssociationapi.service;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,17 +21,18 @@ public class UserAuthService {
     }
 
     public String authLoginRequest(String username, String password) {
-        User user = userService.getUserByUsername(username);
         System.out.println("AuthLogin");
+        User user = userService.getUserByUsername(username);
 
-        if (user != null && username.matches(user.getPassword().toString())){
+
+        if (user != null && password.matches(user.getPassword().toString())){
             // Generate JWT Token
             return Jwts.builder()
                     .setSubject(user.getUsername())  // Use username as the subject
                     //.claim("role", user.getRole())  // Optionally, add user roles/claims
                     .setIssuedAt(new Date())
                     .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
-                    .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                    //.signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                     .compact();
         } else {
             throw new IllegalArgumentException("Invalid Credentials");
