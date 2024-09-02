@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Team {
     @Id
-    private String ObjectId;  // Change ObjectId to String
+    private String teamId;
     private String teamName;
     private List<Player> players;
 
