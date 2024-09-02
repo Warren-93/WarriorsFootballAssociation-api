@@ -19,7 +19,5 @@ public interface PlayerRepo extends MongoRepository<Player, String> {
     Optional<Player> findSinglePlayerByPlayerName(String playerName);
 
 
-    Player saveNewPlayer(Player player);
-
 
 }

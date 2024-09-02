@@ -38,9 +38,10 @@ public class PlayerService {
 
             // Set the team for the player if your model requires it
             //player.setTeam(team); // Ensure Player class has setTeam() method if necessary
-
+            team.getPlayers().add(player);
+            System.out.println("************************ added player to list on team *******************");
             // Save the player
-            Player savedPlayer = playerRepo.save(player);
+            playerRepo.save(player);
             System.out.println("************************* Saved Player **************************************");
             // Add the player to the team
            // team.getPlayers().add(savedPlayer);
@@ -48,7 +49,7 @@ public class PlayerService {
             // Save the updated team
            // teamRepo.save(team);
 
-            return savedPlayer;
+            return player;
         } else {
             throw new RuntimeException("Team not found with name: " + teamName);
         }
