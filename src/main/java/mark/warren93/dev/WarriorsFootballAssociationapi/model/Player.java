@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Player {
-
         @Id
         private String playerId;
         private String teamName;
@@ -19,12 +18,4 @@ public class Player {
         private int squad_number;
         private String position;
         private PlayerStats playerStats;
-
-    public Player(String name, int squad_number, String position, String teamName, PlayerStats playerStats) {
-        this.teamName = teamName;
-        this.name = name;
-        this.squad_number = squad_number;
-        this.position = position;
-        this.playerStats = playerStats;
-    }
 }
