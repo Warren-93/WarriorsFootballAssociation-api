@@ -1,14 +1,16 @@
 package mark.warren93.dev.WarriorsFootballAssociationapi.controller;
 
+import mark.warren93.dev.WarriorsFootballAssociationapi.model.LoginRequest;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.User;
 import mark.warren93.dev.WarriorsFootballAssociationapi.service.UserAuthService;
 import mark.warren93.dev.WarriorsFootballAssociationapi.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -33,22 +35,20 @@ public class UserController {
         }
     }
     @PostMapping("/login")
-    public ResponseEntity<?> userLogin(@RequestParam String username, @RequestParam String password) {
-        Logger logger = LoggerFactory.getLogger(UserController.class);
-
+    public ResponseEntity<?> userLogin(@RequestBody LoginRequest loginRequest) {
         try {
-            logger.info("Login controller hit");
+            System.out.println("Login controller");
 
             // Validate input
-            if (username == null || username.isEmpty()) {
+            if (loginRequest.getUsername() == null || loginRequest.getUsername().isEmpty()) {
                 return ResponseEntity.badRequest().body("Username is required.");
             }
-            if (password == null || password.isEmpty()) {
+            if (loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
                 return ResponseEntity.badRequest().body("Password is required.");
             }
 
             // Attempt to authenticate
-            String loginResponse = userAuthService.authLoginRequest(username, password);
+            String loginResponse = userAuthService.authLoginRequest(loginRequest.getUsername(), loginRequest.getPassword());
 
             if (loginResponse != null) {
                 return ResponseEntity.ok(loginResponse);  // Return successful login response
@@ -57,7 +57,7 @@ public class UserController {
             }
         } catch (Exception e) {
             // Log the exception for debugging purposes
-            logger.error("Error during login", e);
+            e.printStackTrace();
 
             // Return a generic error response
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the login request.");
