@@ -3,7 +3,7 @@ package mark.warren93.dev.WarriorsFootballAssociationapi.service;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -12,8 +12,6 @@ import java.util.Date;
 public class UserAuthService {
 
     UserService userService;
-
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private String SECRET_KEY = "$EsmieWarren17042023Bella";
 
