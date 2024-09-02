@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface TeamRepo extends MongoRepository<Team, String> {
-
     List<Team> findAll();
     //Optional<Team> findByTeamId(String teamId);
     Optional<Team> findTeamByTeamName(String team_name);

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-
     @Autowired
     private UserService userService;
     @Autowired
@@ -27,6 +26,15 @@ public class UserController {
         try {
             User createdUser = userService.createUser(user);
             return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping("/login")
+    public ResponseEntity<User> userLogin(@RequestBody User user) {
+        try {
+
+            return new ResponseEntity<>( HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
