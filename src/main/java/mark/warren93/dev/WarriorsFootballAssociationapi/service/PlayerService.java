@@ -38,17 +38,18 @@ public class PlayerService {
 
             // Set the team for the player if your model requires it
             //player.setTeam(team); // Ensure Player class has setTeam() method if necessary
-            team.getPlayers().add(player);
+
             System.out.println("************************ added player to list on team ***********************");
             // Save the player
             playerRepo.save(player);
-            System.out.println("************************* Saved Player **************************************");
+            System.out.println("************************* Saved Player ************************************** " + player);
             // Add the player to the team
            // team.getPlayers().add(savedPlayer);
 
             // Save the updated team
+            team.getPlayers().add(player);
             teamRepo.save(team);
-            System.out.println("********************************* Saved Team *******************************");
+            System.out.println("********************************* Saved Team ******************************* " + team);
 
             return player;
         } else {
