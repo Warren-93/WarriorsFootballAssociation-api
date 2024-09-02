@@ -21,4 +21,12 @@ public class User {
     private boolean admin;
     private String teamAssignedTo;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                " firstName='" + firstName + '\'' +
+                ", surename='" + surename + '\'' +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }
