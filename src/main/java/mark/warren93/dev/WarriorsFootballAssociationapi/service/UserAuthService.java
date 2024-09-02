@@ -4,9 +4,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+@Service
 public class UserAuthService {
 
     UserService userService;
