@@ -3,7 +3,7 @@ package mark.warren93.dev.WarriorsFootballAssociationapi.service;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.User;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -13,7 +13,12 @@ public class UserAuthService {
 
     UserService userService;
 
-    private String SECRET_KEY = "$EsmieWarren17042023Bella";
+    @Autowired
+    public UserAuthService(UserService userService) {
+        this.userService = userService;
+    }
+
+    private final String SECRET_KEY = "$EsmieWarren17042023Bella";
 
     public String authLoginRequest(String username, String password) {
         User user = userService.getUserByUsername(username);

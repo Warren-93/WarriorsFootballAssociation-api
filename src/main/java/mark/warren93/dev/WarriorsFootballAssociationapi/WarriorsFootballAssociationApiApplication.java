@@ -33,7 +33,6 @@ public class WarriorsFootballAssociationApiApplication {
 		};
 	}
 
-
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		logger.info("Configuring security...");
