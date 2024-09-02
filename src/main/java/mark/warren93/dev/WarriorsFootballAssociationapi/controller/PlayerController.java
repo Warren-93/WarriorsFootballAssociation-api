@@ -16,10 +16,11 @@ public class PlayerController {
     @Autowired
     private PlayerService service;
     @PostMapping("/createPlayer")
-    public ResponseEntity<Player> createPlayer(@RequestBody Player player, @RequestParam String teamName) {
+    public ResponseEntity<String> createPlayer(@RequestBody Player player, @RequestParam String teamName) {
         try {
             Player createPlayer = service.createPlayer(player, teamName);
-            return new ResponseEntity<>(createPlayer, HttpStatus.CREATED);
+            String success = "Player added";
+            return new ResponseEntity<>(success, HttpStatus.CREATED);
         } catch (Exception e) {
             System.out.println("Catch in controller !!!!!!!!!!!!!!!!!!!!!!");
             e.printStackTrace();
