@@ -20,7 +20,7 @@ public class UserAuthService {
         System.out.println("AuthLogin");
         User user = userService.getUserByUsername(username);
 
-        System.out.println(user.toString());
+        System.out.println(user);
         System.out.println(user.getPassword());
         System.out.println(password);
         if (password.equals(user.getPassword())){
