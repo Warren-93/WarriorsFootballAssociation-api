@@ -26,7 +26,7 @@ public class UserAuthService {
 
         System.out.println(user.toString());
         System.out.println(user.getPassword());
-        if (password.matches(user.getPassword().toString())){
+        if (password.equals(user.getPassword())){
             // Generate JWT Token
             return Jwts.builder()
                     .setSubject(user.getUsername())  // Use username as the subject
