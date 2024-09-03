@@ -46,9 +46,8 @@ public class UserController {
             if (loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
                 return ResponseEntity.badRequest().body("Password is required.");
             }
-
             // Attempt to authenticate
-            String loginResponse = userAuthService.authLoginRequest(loginRequest.getUsername(), loginRequest.getPassword());
+            User loginResponse = userAuthService.authLoginRequest(loginRequest.getUsername(), loginRequest.getPassword());
 
             if (loginResponse != null) {
                 return ResponseEntity.ok(loginResponse);  // Return successful login response
@@ -58,7 +57,6 @@ public class UserController {
         } catch (Exception e) {
             // Log the exception for debugging purposes
             e.printStackTrace();
-
             // Return a generic error response
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the login request.");
         }
