@@ -1,32 +1,42 @@
 package mark.warren93.dev.WarriorsFootballAssociationapi.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "db-users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Document(collection = "users")
 public class User {
+    @Id
+    private String id;
 
-    private int userId;
-    private String firstName;
-    private String surename;
+    @NotBlank
+    @Size(min = 3, max = 30)
     private String username;
-    private String email;
-    private String password;
-    private String role;
-    private boolean admin;
-    private String teamAssignedTo;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                " firstName='" + firstName + '\'' +
-                ", surename='" + surename + '\'' +
-                ", username='" + username + '\'' +
-                '}';
-    }
+    @NotBlank
+    @Email
+    private String email;
+
+    @NotBlank
+    @Size(min = 12)
+    private String password;
+
+    // restrict role values, default "player"
+    @NotBlank
+    @Pattern(regexp = "player|team-admin|league-admin")
+    private String role = "player";
+
+    @Size(max = 50)
+    private String displayName;
+
+    private String avatarUrl;
 }

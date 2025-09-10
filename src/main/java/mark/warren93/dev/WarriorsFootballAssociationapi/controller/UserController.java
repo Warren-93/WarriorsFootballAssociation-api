@@ -1,64 +1,42 @@
 package mark.warren93.dev.WarriorsFootballAssociationapi.controller;
 
-import mark.warren93.dev.WarriorsFootballAssociationapi.model.LoginRequest;
+import jakarta.validation.Valid;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.User;
-import mark.warren93.dev.WarriorsFootballAssociationapi.service.UserAuthService;
-import mark.warren93.dev.WarriorsFootballAssociationapi.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import mark.warren93.dev.WarriorsFootballAssociationapi.repository.UserRepository;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    UserAuthService userAuthService;
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    private final UserRepository repo;
+    public UserController(UserRepository r) {
+        this.repo = r;
     }
-    @PostMapping("/createUser")
-    public ResponseEntity<String> createUser(@RequestBody User user) {
-        try {
-            User createdUser = userService.createUser(user);
-            return new ResponseEntity<>("User Created", HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
+    @GetMapping
+    public List<User> all() {
+        return repo.findAll();
     }
-    @PostMapping("/login")
-    public ResponseEntity<?> userLogin(@RequestBody LoginRequest loginRequest) {
-        try {
-            System.out.println("Login controller");
 
-            // Validate input
-            if (loginRequest.getUsername() == null || loginRequest.getUsername().isEmpty()) {
-                return ResponseEntity.badRequest().body("Username is required.");
-            }
-            if (loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
-                return ResponseEntity.badRequest().body("Password is required.");
-            }
-            // Attempt to authenticate
-            User loginResponse = userAuthService.authLoginRequest(loginRequest.getUsername(), loginRequest.getPassword());
+    @GetMapping("/{id}")
+    public User one(@PathVariable String id) {
+        return repo.findById(id).orElseThrow();
+    }
 
-            if (loginResponse != null) {
-                return ResponseEntity.ok(loginResponse);  // Return successful login response
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
-            }
-        } catch (Exception e) {
-            // Log the exception for debugging purposes
-            e.printStackTrace();
-            // Return a generic error response
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the login request.");
-        }
+    @PostMapping
+    public User create(@Valid @RequestBody User u) {
+        return repo.save(u);
+    }
+
+    @PutMapping("/{id}")
+    public User update(@PathVariable String id, @Valid @RequestBody User u) {
+        u.setId(id);
+        return repo.save(u);
+    }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) {
+        repo.deleteById(id);
     }
 }

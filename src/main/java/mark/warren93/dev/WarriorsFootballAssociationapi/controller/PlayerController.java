@@ -1,41 +1,53 @@
 package mark.warren93.dev.WarriorsFootballAssociationapi.controller;
 
+
+import jakarta.validation.Valid;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.Player;
-import mark.warren93.dev.WarriorsFootballAssociationapi.service.PlayerService;
+import mark.warren93.dev.WarriorsFootballAssociationapi.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/players")
+@RequestMapping("/api/players")
 public class PlayerController {
+
     @Autowired
-    private PlayerService service;
-    @PostMapping("/createPlayer")
-    public ResponseEntity<String> createPlayer(@RequestBody Player player, @RequestParam String teamName) {
-        try {
-            Player createPlayer = service.createPlayer(player, teamName);
-            String success = "Player added";
-            return new ResponseEntity<>(success, HttpStatus.CREATED);
-        } catch (Exception e) {
-            System.out.println("Catch in controller !!!!!!!!!!!!!!!!!!!!!!");
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    private final PlayerRepository repo;
+
+    public PlayerController(PlayerRepository r) {
+        this.repo = r;
     }
-    @GetMapping("/allPlayers")
-    public ResponseEntity<List<Player>> getPlayers() {
-        List<Player> allPlayers = service.findAllPlayer();
-        System.out.println(allPlayers);
-        return new ResponseEntity<>(allPlayers, HttpStatus.OK);
+
+    @GetMapping
+    public List<Player> all() {
+        return repo.findAll();
     }
-    @GetMapping("/playerByPlayerName")
-    public ResponseEntity<Optional<Player>> getSinglePlayerByPlayerName(@RequestParam String playerName) {
-        Optional<Player> findPlayerByPlayerName = service.findPlayerByPlayerName(playerName);
-        return new ResponseEntity<>(findPlayerByPlayerName, HttpStatus.OK);
+
+    @GetMapping("/{id}")
+    public Player one(@PathVariable String id) {
+        return repo.findById(id).orElseThrow();
+    }
+
+    @GetMapping("/team/{teamId}")
+    public List<Player> byTeam(@PathVariable String teamId) {
+        return repo.findByTeamId(teamId);
+    }
+
+    @PostMapping
+    public Player create(@Valid @RequestBody Player p) {
+        return repo.save(p);
+    }
+
+    @PutMapping("/{id}")
+    public Player update(@PathVariable String id, @Valid @RequestBody Player p) {
+        p.setId(id);
+        return repo.save(p);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) {
+        repo.deleteById(id);
     }
 }

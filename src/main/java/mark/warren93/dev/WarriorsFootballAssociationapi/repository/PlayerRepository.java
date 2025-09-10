@@ -1,0 +1,1 @@
+package mark.warren93.dev.WarriorsFootballAssociationapi.repository; import mark.warren93.dev.WarriorsFootballAssociationapi.model.Player; import org.springframework.data.mongodb.repository.MongoRepository; import java.util.List; public interface PlayerRepository extends MongoRepository<Player,String>{ List<Player> findByTeamId(String teamId);}

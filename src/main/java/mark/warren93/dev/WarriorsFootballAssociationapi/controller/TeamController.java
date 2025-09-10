@@ -1,47 +1,50 @@
 package mark.warren93.dev.WarriorsFootballAssociationapi.controller;
 
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.Team;
-import mark.warren93.dev.WarriorsFootballAssociationapi.service.TeamService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import mark.warren93.dev.WarriorsFootballAssociationapi.repository.TeamRepository;
+import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/teams")
-public class TeamController{
-    @Autowired
-    private TeamService service;
+@RequestMapping("/api/teams")
+public class TeamController {
+    private final TeamRepository repo;
+
+    public TeamController(TeamRepository r) {
+        this.repo = r;
+    }
+
+    @GetMapping
+    public List<Team> all() {
+        return repo.findAll();
+    }
+
+    @Validated
+    @GetMapping("/{id}")
+    public Team one(@PathVariable String id) {
+        return repo.findById(id).orElseThrow();
+    }
+
+    @PreAuthorize("hasRole('LEAGUE_ADMIN')")
     @PostMapping
-    public ResponseEntity<Team> createTeam(@RequestBody Team team) {
-        try {
-            Team createTeam = service.createTeam(team);
-            return new ResponseEntity<>(createTeam, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public Team create(@Valid @RequestBody Team t) {
+        return repo.save(t);
     }
-    @GetMapping("/allTeams")
-    public ResponseEntity<List<Team>> getTeams() {
-        List<Team> allTeams = service.findAllTeams();
-        System.out.println(allTeams);
-        return new ResponseEntity<>(allTeams, HttpStatus.OK);
+
+    @PreAuthorize("hasRole('LEAGUE_ADMIN') or @authz.isTeamAdmin(authentication, #id)")
+    @PutMapping("/{id}")
+    public Team update(@PathVariable String id, @Valid @RequestBody Team t) {
+        t.setId(id);
+        return repo.save(t);
     }
-    @GetMapping("/singleTeamPlayerDetailsByTeamName")
-    public ResponseEntity<List<Team>> getSingleTeamPlayerDetailsByTeamName(@RequestParam String team_name){
-        List<Team> singleTeamPlayerDetailsByTeamName = service.getSingleTeamPlayerDetailsByTeamName(team_name);
-        System.out.println("************* We have hit the get for single team ********************");
-        System.out.println(singleTeamPlayerDetailsByTeamName);
-        return new ResponseEntity<>(singleTeamPlayerDetailsByTeamName, HttpStatus.OK);
-    }
-    @GetMapping("/teamByTeamName")
-    public ResponseEntity<Optional<Team>> getSingleTeamByTeamName(@RequestParam String team_name){
-        Optional<Team> getSingleTeamByTeamName = service.findTeamByTeamName(team_name);
-        System.out.println("************* We have hit the get for single team ********************");
-        System.out.println(getSingleTeamByTeamName);
-        return new ResponseEntity<>(getSingleTeamByTeamName, HttpStatus.OK);
+
+    @PreAuthorize("hasRole('LEAGUE_ADMIN')")
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) {
+        repo.deleteById(id);
     }
 }

@@ -7,23 +7,18 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "players")
-public class Player {
+@Document(collection = "divisions")
+public class Division {
     @Id
     private String id;
     @NotBlank
-    private String userId;
-    private String teamId;
-    @NotBlank
     private String name;
-    @Pattern(regexp = "GK|DEF|MID|FWD")
-    private String position;
-    @Min(0)
-    @Max(99)
-    private Integer number;
-    @Min(0)
-    private int appearances = 0, goals = 0, assists = 0, cleanSheets = 0;
+    @NotBlank
+    private String season;
+    private List<String> teams;
 }
