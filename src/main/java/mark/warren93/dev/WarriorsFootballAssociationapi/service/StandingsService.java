@@ -2,7 +2,6 @@ package mark.warren93.dev.WarriorsFootballAssociationapi.service;
 
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.Team;
 import mark.warren93.dev.WarriorsFootballAssociationapi.repository.TeamRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -11,7 +10,7 @@ import java.util.List;
 @Service
 public class StandingsService {
 
-    @Autowired
+
     private final TeamRepository teamRepo;
 
     public StandingsService(TeamRepository teamRepo) {
