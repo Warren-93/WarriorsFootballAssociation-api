@@ -2,6 +2,6 @@ package mark.warren93.dev.WarriorsFootballAssociationapi.repository; import mark
 
 import java.util.List;
 
-public interface TeamRepository extends MongoRepository<Team,String>{ Team findByTeamName(String name);
+public interface TeamRepository extends MongoRepository<Team,String>{ Team findByName(String name);
     List<Team> findByDivisionId(String divisionId);
 }
