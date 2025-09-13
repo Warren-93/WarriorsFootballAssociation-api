@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/fixtures")
+@RequestMapping("/api/fixtures")
 public class FixtureController {
     private final FixtureRepository repo;
 
