@@ -10,7 +10,7 @@ import java.util.*;
 public class UserPrincipal implements UserDetails {
     private final User user;
 
-    public UserPrincipal(User u) {
+    public UserPrincipal(Optional<User> u) {
         this.user = u;
     }
 

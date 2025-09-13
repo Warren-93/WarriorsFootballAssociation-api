@@ -5,18 +5,20 @@ import mark.warren93.dev.WarriorsFootballAssociationapi.repository.UserRepositor
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UserRepository users;
+    private final UserRepository user;
 
     public CustomUserDetailsService(UserRepository u) {
-        this.users = u;
+        this.user = u;
     }
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        User u = users.findByUsername(usernameOrEmail);
-        if (u == null) u = users.findByEmail(usernameOrEmail);
+        Optional<User> u = user.findByUsername(usernameOrEmail);
+        if (u == null) u = user.findByEmail(usernameOrEmail);
         if (u == null) throw new UsernameNotFoundException("User not found");
         return new UserPrincipal(u);
     }
