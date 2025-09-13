@@ -16,6 +16,7 @@ public class Fixture {
     private String homeTeam;
     private String awayTeam;
     private String date;
+    private String status;
 
     @Data
     @AllArgsConstructor
