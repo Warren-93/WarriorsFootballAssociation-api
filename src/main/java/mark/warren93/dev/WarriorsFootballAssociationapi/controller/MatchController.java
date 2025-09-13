@@ -42,7 +42,6 @@ public class MatchController {
     @PreAuthorize("hasAnyRole('LEAGUE_ADMIN','TEAM_ADMIN')")
     @PutMapping("/{id}")
     public Match update(@PathVariable String id, @Valid @RequestBody Match m) {
-        m.setId(id);
         return repo.save(m);
     }
 
