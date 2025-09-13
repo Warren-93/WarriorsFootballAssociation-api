@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -15,6 +14,7 @@ public class TeamController {
     private final TeamRepository repo;
 
     public TeamController(TeamRepository r) {
+        System.out.println("We have hit Teams API");
         this.repo = r;
     }
 
@@ -26,6 +26,7 @@ public class TeamController {
     @Validated
     @GetMapping("/{id}")
     public Team one(@PathVariable String id) {
+
         return repo.findById(id).orElseThrow();
     }
 

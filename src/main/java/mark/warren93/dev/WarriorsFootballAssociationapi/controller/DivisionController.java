@@ -14,6 +14,7 @@ public class DivisionController {
     private final DivisionRepository repo;
 
     public DivisionController(DivisionRepository r) {
+        System.out.println("We have hit divisions API");
         this.repo = r;
     }
 

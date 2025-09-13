@@ -12,6 +12,7 @@ public class StandingsController {
     private final StandingsService standings;
 
     public StandingsController(StandingsService standings) {
+        System.out.println("We have hit Standings API");
         this.standings = standings;
     }
 

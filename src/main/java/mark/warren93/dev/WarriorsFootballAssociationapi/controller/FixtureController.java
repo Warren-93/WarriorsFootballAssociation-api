@@ -12,6 +12,7 @@ public class FixtureController {
     private final FixtureRepository repo;
 
     public FixtureController(FixtureRepository repo) {
+        System.out.println("We have hit Fixtures API");
         this.repo = repo;
     }
 

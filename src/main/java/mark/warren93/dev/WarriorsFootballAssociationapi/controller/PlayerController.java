@@ -17,6 +17,7 @@ public class PlayerController {
     private final PlayerRepository repo;
 
     public PlayerController(PlayerRepository r) {
+        System.out.println("We have hit Players API");
         this.repo = r;
     }
 

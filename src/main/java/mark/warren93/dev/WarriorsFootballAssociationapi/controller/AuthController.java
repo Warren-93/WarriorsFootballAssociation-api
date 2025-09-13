@@ -25,6 +25,7 @@ public class AuthController {
     private final JwtService jwt;
 
     public AuthController(AuthenticationManager am, PasswordEncoder pe, UserRepository users, JwtService jwt) {
+        System.out.println("We have hit auth API");
         this.am = am;
         this.pe = pe;
         this.users = users;

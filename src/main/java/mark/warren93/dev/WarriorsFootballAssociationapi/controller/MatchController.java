@@ -14,6 +14,7 @@ public class MatchController {
     private final MatchRepository repo;
 
     public MatchController(MatchRepository r) {
+        System.out.println("We have hit Match API");
         this.repo = r;
     }
 
