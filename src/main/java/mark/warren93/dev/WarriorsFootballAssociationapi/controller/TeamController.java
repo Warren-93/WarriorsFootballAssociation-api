@@ -3,9 +3,12 @@ package mark.warren93.dev.WarriorsFootballAssociationapi.controller;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.Team;
 import mark.warren93.dev.WarriorsFootballAssociationapi.repository.TeamRepository;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @RestController
@@ -26,8 +29,7 @@ public class TeamController {
     @Validated
     @GetMapping("/{id}")
     public Team one(@PathVariable String id) {
-
-        return repo.findById(id).orElseThrow();
+        return repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found: " + id));
     }
 
     @PreAuthorize("hasRole('LEAGUE_ADMIN')")

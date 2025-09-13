@@ -3,8 +3,10 @@ package mark.warren93.dev.WarriorsFootballAssociationapi.controller;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.Match;
 import mark.warren93.dev.WarriorsFootballAssociationapi.repository.MatchRepository;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class MatchController {
 
     @GetMapping("/{id}")
     public Match one(@PathVariable String id) {
-        return repo.findById(id).orElseThrow();
+        return repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Match not found: " + id));
     }
 
     @GetMapping("/division/{divisionId}")
@@ -42,6 +44,7 @@ public class MatchController {
     @PreAuthorize("hasAnyRole('LEAGUE_ADMIN','TEAM_ADMIN')")
     @PutMapping("/{id}")
     public Match update(@PathVariable String id, @Valid @RequestBody Match m) {
+        m.setId(id);
         return repo.save(m);
     }
 

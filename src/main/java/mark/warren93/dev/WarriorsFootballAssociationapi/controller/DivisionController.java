@@ -3,8 +3,10 @@ package mark.warren93.dev.WarriorsFootballAssociationapi.controller;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.Division;
 import mark.warren93.dev.WarriorsFootballAssociationapi.repository.DivisionRepository;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class DivisionController {
 
     @GetMapping("/{id}")
     public Division one(@PathVariable String id) {
-        return repo.findById(id).orElseThrow();
+        return repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Division not found: " + id));
     }
 
     @PreAuthorize("hasRole('LEAGUE_ADMIN')")

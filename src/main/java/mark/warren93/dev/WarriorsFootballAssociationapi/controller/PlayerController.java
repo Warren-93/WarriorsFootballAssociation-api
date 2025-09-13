@@ -1,19 +1,16 @@
 package mark.warren93.dev.WarriorsFootballAssociationapi.controller;
 
-
 import jakarta.validation.Valid;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.Player;
 import mark.warren93.dev.WarriorsFootballAssociationapi.repository.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/players")
 public class PlayerController {
-
-    @Autowired
     private final PlayerRepository repo;
 
     public PlayerController(PlayerRepository r) {
@@ -28,7 +25,7 @@ public class PlayerController {
 
     @GetMapping("/{id}")
     public Player one(@PathVariable String id) {
-        return repo.findById(id).orElseThrow();
+        return repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found: " + id));
     }
 
     @GetMapping("/team/{teamId}")

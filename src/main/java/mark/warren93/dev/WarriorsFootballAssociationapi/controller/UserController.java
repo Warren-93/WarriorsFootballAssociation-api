@@ -3,7 +3,9 @@ package mark.warren93.dev.WarriorsFootballAssociationapi.controller;
 import jakarta.validation.Valid;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.User;
 import mark.warren93.dev.WarriorsFootballAssociationapi.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
     private final UserRepository repo;
+
     public UserController(UserRepository r) {
         this.repo = r;
     }
@@ -22,7 +25,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User one(@PathVariable String id) {
-        return repo.findById(id).orElseThrow();
+        return repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found: " + id));
     }
 
     @PostMapping
@@ -35,6 +38,7 @@ public class UserController {
         u.setId(id);
         return repo.save(u);
     }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
         repo.deleteById(id);

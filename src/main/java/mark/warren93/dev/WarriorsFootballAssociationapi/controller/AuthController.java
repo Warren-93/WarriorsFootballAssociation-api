@@ -35,30 +35,23 @@ public class AuthController {
     @Validated
     public record RegisterRequest(@NotBlank @Size(min = 3, max = 30) String username, @NotBlank @Email String email,
                                   @NotBlank @Size(min = 8) String password,
-                                  @Pattern(regexp = "player|team-admin|league-admin") String role) {
-    }
+                                  @Pattern(regexp = "player|team-admin|league-admin") String role) {}
 
     @Validated
-    public record LoginRequest(@NotBlank String usernameOrEmail, @NotBlank String password) {
-    }
+    public record LoginRequest(@NotBlank String usernameOrEmail, @NotBlank String password) {}
 
-    @Validated
     @PostMapping("/register")
     public Map<String, Object> register(@Valid @RequestBody RegisterRequest req) {
-        // Defensive checks
         if (req.username() == null || req.email() == null || req.password() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username, email and password are required");
         }
 
-        // Check if user exists by username or email
         boolean usernameExists = users.findByUsername(req.username()).isPresent();
         boolean emailExists = users.findByEmail(req.email()).isPresent();
-
         if (usernameExists || emailExists) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
         }
 
-        // Create and save new user
         User u = new User();
         u.setUsername(req.username());
         u.setEmail(req.email());
@@ -66,26 +59,14 @@ public class AuthController {
         u.setRole(req.role() == null ? "player" : req.role());
 
         users.save(u);
-
-        System.out.println("Registered User: " + u);
-
-        // Generate JWT token
         String token = jwt.generate(u.getId(), u.getUsername(), u.getRole());
 
-        return Map.of(
-                "token", token,
-                "user", Map.of(
-                        "id", u.getId(),
-                        "username", u.getUsername(),
-                        "role", u.getRole()
-                )
-        );
+        return Map.of("token", token,
+                      "user", Map.of("id", u.getId(), "username", u.getUsername(), "role", u.getRole()));
     }
 
-    @Validated
     @PostMapping("/login")
     public Map<String, Object> login(@Valid @RequestBody LoginRequest req) {
-        System.out.println("I have hit login");
         Authentication auth = am.authenticate(new UsernamePasswordAuthenticationToken(req.usernameOrEmail(), req.password()));
         UserPrincipal up = (UserPrincipal) auth.getPrincipal();
         String token = jwt.generate(up.getId(), up.getUsername(), up.getRole());
