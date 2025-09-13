@@ -51,12 +51,12 @@ public class SecurityConfig {
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/api/auth/**","/actuator/health").permitAll()
-                    .requestMatchers(HttpMethod.GET,"/api/divisions/**","/api/teams/**","/api/matches/**","/api/players/**").permitAll()
+                    .requestMatchers(HttpMethod.GET,"/api/divisions/**","/api/teams/**","/api/fixtures/**","/api/players/**").permitAll()
                     .requestMatchers(HttpMethod.POST,"/api/divisions/**","/api/teams/**").hasRole("LEAGUE_ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/divisions/**","/api/teams/**").hasAnyRole("LEAGUE_ADMIN","TEAM_ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/**").hasRole("LEAGUE_ADMIN")
-                    .requestMatchers(HttpMethod.POST,"/api/matches/**").hasAnyRole("LEAGUE_ADMIN","TEAM_ADMIN")
-                    .requestMatchers(HttpMethod.PUT,"/api/matches/**").hasAnyRole("LEAGUE_ADMIN","TEAM_ADMIN")
+                    .requestMatchers(HttpMethod.POST,"/api/fixtures/**").hasAnyRole("LEAGUE_ADMIN","TEAM_ADMIN")
+                    .requestMatchers(HttpMethod.PUT,"/api/fixtures/**").hasAnyRole("LEAGUE_ADMIN","TEAM_ADMIN")
                     .anyRequest().authenticated()
             )
             .addFilterBefore(jwt, UsernamePasswordAuthenticationFilter.class);
