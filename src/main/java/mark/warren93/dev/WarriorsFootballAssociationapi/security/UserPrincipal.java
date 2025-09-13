@@ -1,31 +1,32 @@
 package mark.warren93.dev.WarriorsFootballAssociationapi.security;
 
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.User;
-import org.springframework.security.core.*;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.swing.text.html.Option;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 public class UserPrincipal implements UserDetails {
-    private final Optional<User> user;
+
+    private final User user;
 
     public UserPrincipal(Optional<User> u) {
-        this.user = u;
+        this.user = u.orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     public String getId() {
-        return user.get().getId();
+        return user.getId();
     }
 
     public String getRole() {
-        return user.get().getRole();
+        return user.getRole();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String r = user.get().getRole() == null ? "player" : user.get().getRole();
+        String r = user.getRole() == null ? "player" : user.getRole();
         String role = switch (r) {
             case "team-admin" -> "ROLE_TEAM_ADMIN";
             case "league-admin" -> "ROLE_LEAGUE_ADMIN";
@@ -36,12 +37,12 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.get().getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.get().getUsername();
+        return user.getUsername();
     }
 
     @Override

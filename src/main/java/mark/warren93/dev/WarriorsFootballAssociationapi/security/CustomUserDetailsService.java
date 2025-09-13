@@ -9,17 +9,26 @@ import java.util.Optional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UserRepository user;
 
-    public CustomUserDetailsService(UserRepository u) {
-        this.user = u;
+    private final UserRepository users;
+
+    public CustomUserDetailsService(UserRepository users) {
+        this.users = users;
     }
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        Optional<User> u = user.findByUsername(usernameOrEmail);
-        if (u == null) u = user.findByEmail(usernameOrEmail);
-        if (u == null) throw new UsernameNotFoundException("User not found");
-        return new UserPrincipal(u);
+        // Try username first
+        Optional<User> u = users.findByUsername(usernameOrEmail);
+
+        // If not found, try email
+        if (u.isEmpty()) {
+            u = users.findByEmail(usernameOrEmail);
+        }
+
+        // If still not found, throw error
+        return new UserPrincipal(
+                Optional.ofNullable(u.orElseThrow(() -> new UsernameNotFoundException("User not found: " + usernameOrEmail)))
+        );
     }
 }
