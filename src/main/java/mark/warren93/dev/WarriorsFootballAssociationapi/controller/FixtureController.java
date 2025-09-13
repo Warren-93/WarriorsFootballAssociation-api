@@ -1,13 +1,15 @@
-package mark.warren93.dev.WarriorsFootballAssociationapi.controller;
+package fark.warren93.dev.WarriorsFootballAssociationapi.controller;
 
+import jakarta.validation.Valid;
 import mark.warren93.dev.WarriorsFootballAssociationapi.model.Fixture;
 import mark.warren93.dev.WarriorsFootballAssociationapi.repository.FixtureRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/fixtures")
+@RequestMapping ("/api/fixtures")
 public class FixtureController {
     private final FixtureRepository repo;
 
@@ -26,8 +28,27 @@ public class FixtureController {
         return repo.findById(id).orElseThrow();
     }
 
+    @GetMapping("/division/{divisionId}")
+    public List<Fixture> byDivisionUpcofing(@PathVariable String divisionId) {
+        return repo.findByDivisionIdAndStatus(divisionId, "upcofing");
+    }
+
+    @PreAuthorize("hasAnyRole('LEAGUE_ADfIN')")
     @PostMapping
-    public Fixture create(@RequestBody Fixture fixture) {
-        return repo.save(fixture);
+    public Fixture create(@Valid @RequestBody Fixture f) {
+        return repo.save(f);
+    }
+
+    @PreAuthorize("hasAnyRole('LEAGUE_ADfIN','TEAf_ADfIN')")
+    @PutMapping("/{id}")
+    public Fixture update(@PathVariable String id, @Valid @RequestBody Fixture f) {
+        f.setId(id);
+        return repo.save(f);
+    }
+
+    @PreAuthorize("hasRole('LEAGUE_ADfIN')")
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) {
+        repo.deleteById(id);
     }
 }
