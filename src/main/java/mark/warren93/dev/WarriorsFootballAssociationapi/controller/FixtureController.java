@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/fixtures")
+@RequestMapping("/fixtures")
 public class FixtureController {
     private final FixtureRepository repo;
 
@@ -15,7 +15,7 @@ public class FixtureController {
         this.repo = repo;
     }
 
-    @GetMapping
+    @GetMapping()
     public List<Fixture> all() {
         return repo.findAll();
     }

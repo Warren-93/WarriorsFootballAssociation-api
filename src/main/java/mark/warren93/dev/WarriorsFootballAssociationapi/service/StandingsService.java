@@ -10,7 +10,6 @@ import java.util.List;
 @Service
 public class StandingsService {
 
-
     private final TeamRepository teamRepo;
 
     public StandingsService(TeamRepository teamRepo) {
@@ -34,7 +33,6 @@ public class StandingsService {
         for (Team t : teams) {
             t.setRank(rank++); // <-- requires `rank` field in Team
         }
-
         return teams;
     }
 }

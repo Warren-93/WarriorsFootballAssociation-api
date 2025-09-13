@@ -65,12 +65,17 @@ public class SecurityConfig {
 
   private CorsConfigurationSource corsSource() {
     CorsConfiguration c = new CorsConfiguration();
-    c.setAllowedOrigins(List.of("http://localhost:3000"));
-    c.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
-    c.setAllowedHeaders(List.of("Authorization","Content-Type"));
+    c.setAllowedOrigins(List.of(
+            "http://localhost:3000",                  // local dev
+            "https://wfa-league.onrender.com"         // deployed frontend on Render
+    ));
+    c.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    c.setAllowedHeaders(List.of("Authorization", "Content-Type"));
     c.setAllowCredentials(true);
+
     UrlBasedCorsConfigurationSource s = new UrlBasedCorsConfigurationSource();
     s.registerCorsConfiguration("/**", c);
     return s;
   }
+
 }
