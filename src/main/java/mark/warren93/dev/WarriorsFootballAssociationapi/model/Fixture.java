@@ -13,6 +13,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Fixture {
     @Id
     private String id;
+
+    private String divisionId;
     private String homeTeam;
     private String awayTeam;
     private String date;
