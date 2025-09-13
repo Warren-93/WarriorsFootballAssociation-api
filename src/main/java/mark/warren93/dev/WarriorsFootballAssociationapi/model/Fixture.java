@@ -16,4 +16,12 @@ public class Fixture {
     private String homeTeam;
     private String awayTeam;
     private String date;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Result {
+        private int homeScore;
+        private int awayScore;
+    }
 }
