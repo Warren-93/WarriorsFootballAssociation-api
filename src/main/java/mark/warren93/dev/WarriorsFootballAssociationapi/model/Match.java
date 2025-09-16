@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,21 +15,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Match {
     @Id
     private String id;
-
+    private String homeTeam;
+    private String awayTeam;
     private String divisionId;
-    private String homeTeamId;
-    private String awayTeamId;
-
-    // e.g. "scheduled", "in-progress", "finished"
+    private LocalDateTime date;
+    private Integer homeScore;
+    private Integer awayScore;
     private String status;
-
-    private Result result;
-
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Result {
-        private int homeScore;
-        private int awayScore;
-    }
 }

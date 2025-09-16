@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,18 +15,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Fixture {
     @Id
     private String id;
-
-    private String divisionId;
     private String homeTeam;
     private String awayTeam;
-    private String date;
-    private String status;
-
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Result {
-        private int homeScore;
-        private int awayScore;
-    }
+    private String divisionId;
+    private LocalDateTime date;
+    private Integer homeScore;
+    private Integer awayScore;
+    private String status; // e.g. upcoming, completed
 }

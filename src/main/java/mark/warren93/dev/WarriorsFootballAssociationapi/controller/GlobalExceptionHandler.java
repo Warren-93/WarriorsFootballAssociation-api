@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
         Map<String, Object> error = new HashMap<>();
         error.put("timestamp", LocalDateTime.now());
         error.put("status", ex.getStatusCode().value());
-        error.put("error", ex.getReason() != null ? ex.getReason() : ex.getStatusCode().getReasonPhrase());
+        error.put("error", ex.getReason() != null ? ex.getReason() : ex.getStatusCode().value());
         return new ResponseEntity<>(error, ex.getStatusCode());
     }
 

@@ -25,5 +25,11 @@ public class Player {
     @Max(99)
     private Integer number;
     @Min(0)
-    private int appearances = 0, goals = 0, assists = 0, cleanSheets = 0;
+    private int appearances = 0;
+    @Min(0)
+    private int goals = 0;
+    @Min(0)
+    private int assists = 0;
+    @Min(0)
+    private int cleanSheets = 0;
 }
