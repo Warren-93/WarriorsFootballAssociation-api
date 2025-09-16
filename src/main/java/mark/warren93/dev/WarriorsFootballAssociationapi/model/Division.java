@@ -12,6 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "divisions")
 public class Division {
     @Id
-    private String id;
+    private String divisionId;
     private String name;
 }
