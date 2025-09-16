@@ -39,7 +39,6 @@ public class DivisionController {
     @PreAuthorize("hasAnyRole('LEAGUE_ADMIN','TEAM_ADMIN')")
     @PutMapping("/{id}")
     public Division update(@PathVariable String id, @Valid @RequestBody Division d) {
-        d.setId(id);
         return repo.save(d);
     }
 

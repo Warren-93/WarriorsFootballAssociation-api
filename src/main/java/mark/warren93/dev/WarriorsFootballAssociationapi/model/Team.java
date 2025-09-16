@@ -15,6 +15,8 @@ import java.util.List;
 public class Team {
     @Id
     private String id;
+
+    private String divisionId;
     private String name;
     private int points;
     private int goalDiff;

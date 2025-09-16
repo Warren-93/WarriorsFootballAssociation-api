@@ -35,7 +35,6 @@ public class UserController {
 
     @PutMapping("/{id}")
     public User update(@PathVariable String id, @Valid @RequestBody User u) {
-        u.setId(id);
         return repo.save(u);
     }
 

@@ -41,7 +41,6 @@ public class PlayerController {
 
     @PutMapping("/{id}")
     public Player update(@PathVariable String id, @Valid @RequestBody Player p) {
-        p.setId(id);
         return repo.save(p);
     }
 

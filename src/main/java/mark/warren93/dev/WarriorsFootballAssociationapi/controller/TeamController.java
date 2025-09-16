@@ -41,7 +41,6 @@ public class TeamController {
     @PreAuthorize("hasRole('LEAGUE_ADMIN') or @authz.isTeamAdmin(authentication, #id)")
     @PutMapping("/{id}")
     public Team update(@PathVariable String id, @Valid @RequestBody Team t) {
-        t.setId(id);
         return repo.save(t);
     }
 

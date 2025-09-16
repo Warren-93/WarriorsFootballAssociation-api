@@ -44,7 +44,6 @@ public class FixtureController {
     @PreAuthorize("hasAnyRole('LEAGUE_ADMIN','TEAM_ADMIN')")
     @PutMapping("/{id}")
     public Fixture update(@PathVariable String id, @Valid @RequestBody Fixture f) {
-        f.setId(id);
         return repo.save(f);
     }
 
